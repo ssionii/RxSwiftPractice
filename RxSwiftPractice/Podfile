@@ -6,6 +6,7 @@ target 'RxSwiftPractice' do
   use_frameworks!
 
 pod 'RxSwift'
+pod 'RxCocoa'
 
   # Pods for RxSwiftPractice
 
