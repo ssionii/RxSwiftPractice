@@ -310,3 +310,191 @@ example(of: "ReplaySubject") {
         }
         .disposed(by: disposeBag)
 }
+
+
+//MARK: - 04_Filtering Operators
+
+example(of: "ignoreElements") {
+    let strikes = PublishSubject<String>()
+    let disposeBag = DisposeBag()
+    
+    strikes
+        .ignoreElements()
+        .subscribe({ _ in
+            print("You're out!")
+        })
+        .disposed(by: disposeBag)
+    
+    strikes.onNext("X")
+    strikes.onNext("X")
+    strikes.onNext("X")
+    
+    strikes.onCompleted()
+}
+
+
+example(of: "elementAt") {
+    let strikes = PublishSubject<String>()
+    let disposeBag = DisposeBag()
+    
+    strikes
+        .element(at: 2)
+        .subscribe(onNext: { _ in
+            print("You're out!")
+        })
+        .disposed(by: disposeBag)
+    
+    strikes.onNext("X")
+    strikes.onNext("X")
+    strikes.onNext("X")
+}
+
+example(of: "filter") {
+    let disposeBag = DisposeBag()
+    
+    Observable.of(1, 2, 3, 4, 5, 6)
+        .filter({ number -> Bool in
+            number % 2 == 0
+        })
+        .subscribe(onNext: { even in
+            print(even)
+        })
+        .disposed(by: disposeBag)
+}
+
+example(of: "skip") {
+    let disposeBag = DisposeBag()
+    
+    Observable.of("A", "B", "C", "D", "E", "F")
+        .skip(3)
+        .subscribe(onNext: {
+            print($0)
+        })
+        .disposed(by: disposeBag)
+}
+
+// skip 하지 않을 때 까지 skip.
+// 한번 skip이 안되면 그 이후부터는 skip이 없어진다고 생각하면 된다.
+example(of: "skipWhile") {
+    let disposeBag = DisposeBag()
+    
+    Observable.of(2, 2, 3, 4, 4)
+        .skip(while: { number -> Bool in
+            number % 2 == 0
+        })
+        .subscribe(onNext: {
+            print($0)
+        })
+        .disposed(by: disposeBag)
+}
+
+example(of: "skipUntil") {
+    let disposeBag = DisposeBag()
+    
+    let subject = PublishSubject<String>()
+    let trigger = PublishSubject<String>()
+    
+    subject
+        .skip(until: trigger)
+        .subscribe(onNext: {
+            print($0)
+        })
+        .disposed(by: disposeBag)
+    
+    subject.onNext("A")
+    subject.onNext("B")
+    
+    trigger.onNext("X")
+    
+    subject.onNext("C")
+}
+
+example(of: "takeWhile") {
+    let disposeBag = DisposeBag()
+    
+    Observable.of(2, 2, 4, 4, 6, 6)
+        .enumerated()
+        .take(while: { index, value in
+            value % 2 == 0 && index < 3
+        })
+        .map { $0.element }
+        .subscribe(onNext: {
+            print($0)
+        })
+        .disposed(by: disposeBag)
+}
+
+example(of: "distincUntilChaged") {
+    let disposeBag = DisposeBag()
+    
+    Observable.of("A", "A", "B", "B", "A")
+        .distinctUntilChanged()
+        .subscribe(onNext: {
+            print($0)
+        })
+        .disposed(by: disposeBag)
+}
+
+example(of: "challenge"){
+    
+    let contacts = [
+      "603-555-1212": "Florent",
+      "212-555-1212": "Shai",
+      "408-555-1212": "Marin",
+      "617-555-1212": "Scott"
+    ]
+    
+    
+    func phoneNumber(from inputs: [Int]) -> String {
+        var phone = inputs.map(String.init).joined()
+        
+        phone.insert("-", at: phone.index(phone.startIndex, offsetBy: 3))
+        phone.insert("-", at: phone.index(phone.startIndex, offsetBy: 7))
+        
+        return phone
+    }
+    
+    let input = PublishSubject<Int>()
+    let disposeBag = DisposeBag()
+    
+    input
+        .skip(while: { number -> Bool in
+            number == 0
+        })
+        .filter { number -> Bool in
+            number < 10
+        }
+        .take(10)
+        .toArray()
+        .subscribe(onSuccess: {
+            let phone = phoneNumber(from: $0)
+            
+            if let contact = contacts[phone] {
+                print("Dialing \(contact) (\(phone))...")
+            } else {
+                print("Contact not found")
+            }
+        })
+        .disposed(by: disposeBag)
+    
+    input.onNext(0)
+    input.onNext(603)
+    
+    input.onNext(2)
+    input.onNext(1)
+    
+    
+    input.onNext(7)
+    
+    "5551212".forEach {
+        if let number = (Int("\($0)")) {
+            input.onNext(number)
+        }
+    }
+    
+    input.onNext(9)
+    
+    
+    
+}
+
