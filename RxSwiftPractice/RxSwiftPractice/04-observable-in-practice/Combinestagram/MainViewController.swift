@@ -64,7 +64,6 @@ class MainViewController: UIViewController {
         guard let image = imagePreview.image else { return }
         
         PhotoWriter.save(image)
-            .asSingle()
             .subscribe(
                 onSuccess: { [weak self] id in
                     self?.showMessage("Saved with id: \(id)")
@@ -77,9 +76,9 @@ class MainViewController: UIViewController {
     }
     
     func showMessage(_ title: String, description: String? = nil) {
-      let alert = UIAlertController(title: title, message: description, preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { [weak self] _ in self?.dismiss(animated: true, completion: nil)}))
-      present(alert, animated: true, completion: nil)
+        alert(title: title, text: description)
+            .subscribe()
+            .disposed(by: bag)
     }
     
     func updateUI(photos: [UIImage]) {
@@ -88,5 +87,20 @@ class MainViewController: UIViewController {
         addButton.isEnabled = photos.count < 6
         navigationBar.title = photos.count > 0 ? "\(photos.count) photos" : "Collage"
     }
+}
 
+extension UIViewController {
+    func alert(title: String, text: String?) -> Completable {
+        return Completable.create(subscribe: { [weak self] completable in
+            let alert = UIAlertController(title: title, message: text, preferredStyle: .alert)
+            let closeAction = UIAlertAction(title: "Close", style: .default, handler: { _ in
+                completable(.completed)
+            })
+            alert.addAction(closeAction)
+            self?.present(alert, animated: true, completion: nil)
+            return Disposables.create {
+                self?.dismiss(animated: true, completion: nil)
+            }
+        })
+    }
 }
