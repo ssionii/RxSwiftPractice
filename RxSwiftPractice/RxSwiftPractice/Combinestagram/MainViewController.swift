@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 import RxSwift
 import RxCocoa
 
@@ -13,6 +14,7 @@ class MainViewController: UIViewController {
 
     private let bag = DisposeBag()
     private let images = BehaviorRelay<[UIImage]>(value: [])
+    private var imageCache = [Int]()
 
     @IBOutlet weak var imagePreview: UIImageView!
     @IBOutlet weak var clearButton: UIButton!
@@ -24,6 +26,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         images.asObservable()
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak imagePreview] photos in
                 guard let preview = imagePreview else { return }
                 preview.image = photos.collage(size: preview.frame.size)
@@ -40,6 +43,26 @@ class MainViewController: UIViewController {
 
     @IBAction func actionAdd(_ sender: Any) {
         let photoViewController = storyboard!.instantiateViewController(withIdentifier: "PhotosViewController") as! PhotosViewController
+
+        let newPhotos = photoViewController.selectedPhotos.share()
+        
+        newPhotos
+            .filter { newImage in
+                return newImage.size.width > newImage.size.height
+            }
+            .take(while: { [weak self] image in
+                return (self?.images.value.count ?? 0) < 6
+            })
+            .filter { [weak self] newImage in
+                let len = newImage.pngData()?.count ?? 0
+                guard self?.imageCache.contains(len) == false else { return false }
+                self?.imageCache.append(len)
+                return true
+            }
+            .subscribe(onCompleted: { [weak self] in
+                self?.updateNavigationIcon()
+            })
+            .disposed(by: photoViewController.bag)
         
         photoViewController.selectedPhotos
             .subscribe(
@@ -58,6 +81,7 @@ class MainViewController: UIViewController {
     
     @IBAction func actionClear() {
         images.accept([])
+        imageCache = []
     }
     
     @IBAction func actionSave(_ sender: UIButton) {
@@ -73,6 +97,14 @@ class MainViewController: UIViewController {
                     self?.showMessage("Error", description: error.localizedDescription)
                 })
             .disposed(by: bag)
+    }
+    
+    private func updateNavigationIcon() {
+        let icon = imagePreview.image?
+            .scaled(CGSize(width: 22, height: 22))
+            .withRenderingMode(.alwaysOriginal)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: icon, style: .done, target: nil, action: nil)
     }
     
     func showMessage(_ title: String, description: String? = nil) {

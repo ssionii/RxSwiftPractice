@@ -493,8 +493,5 @@ example(of: "challenge"){
     }
     
     input.onNext(9)
-    
-    
-    
 }
 
