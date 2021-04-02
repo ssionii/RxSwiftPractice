@@ -7,6 +7,8 @@
 
 import UIKit
 import RxSwift
+import CoreLocation
+import MapKit
 
 class ApiController {
     
@@ -15,11 +17,26 @@ class ApiController {
     let baseURL = URL(string: "https://api.openweathermap.org/data/2.5")!
     private let apiKey = "9f94ce916b3f0cf95e63edb4bf498ca4"
     
+    // MARK:- API
+    
     func currentWeather(city: String) -> Observable<Weather> {
         return buildRequest(pathComponent: "weather", params: [("q", city)])
             .map { data in
                 try JSONDecoder().decode(Weather.self, from: data)
             }
+    }
+    
+    func currentWeather(at coordinate: CLLocationCoordinate2D) -> Observable<Weather> {
+        buildRequest(
+            pathComponent: "weather",
+            params: [
+                ("lat", "\(coordinate.latitude)"),
+                ("lon", "\(coordinate.longitude)")
+            ]
+        )
+        .map { data in
+            try JSONDecoder().decode(Weather.self, from: data)
+        }
     }
 
     private func buildRequest(method: String = "GET", pathComponent: String, params: [(String, String)]) -> Observable<Data> {

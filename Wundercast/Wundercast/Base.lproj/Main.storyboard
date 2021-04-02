@@ -45,9 +45,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mly-Po-Mfi">
-                                <rect key="frame" x="341" y="464.5" width="51" height="31"/>
-                            </switch>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="DKH-bO-pqr">
+                                <rect key="frame" x="197" y="443" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCM-zr-EiM">
+                                <rect key="frame" x="30" y="810" width="20" height="22"/>
+                                <state key="normal" image="location" catalog="system"/>
+                            </button>
+                            <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qHb-Ml-ryz">
+                                <rect key="frame" x="0.0" y="138" width="414" height="642"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7mt-2q-b5Y">
+                                <rect key="frame" x="362.5" y="810" width="21.5" height="22"/>
+                                <state key="normal" image="map" catalog="system"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -55,25 +66,37 @@
                             <constraint firstItem="y31-DK-ExW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="60" id="1ha-m4-2e3"/>
                             <constraint firstItem="whh-LS-apb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="3g0-Do-FHk"/>
                             <constraint firstItem="c0c-vt-o4E" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="85q-v5-eiQ"/>
+                            <constraint firstItem="7mt-2q-b5Y" firstAttribute="top" secondItem="qHb-Ml-ryz" secondAttribute="bottom" constant="30" id="GDj-CQ-cSd"/>
                             <constraint firstItem="Gdt-WD-fH5" firstAttribute="top" secondItem="y31-DK-ExW" secondAttribute="bottom" constant="40" id="H3a-ID-GrK"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mly-Po-Mfi" secondAttribute="trailing" constant="24" id="HkO-Fc-pcI"/>
+                            <constraint firstItem="qHb-Ml-ryz" firstAttribute="top" secondItem="whh-LS-apb" secondAttribute="bottom" constant="30" id="Ia7-nQ-8Mw"/>
+                            <constraint firstItem="qHb-Ml-ryz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ivj-Ts-jN5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="whh-LS-apb" secondAttribute="trailing" constant="50" id="PiV-SQ-3FY"/>
                             <constraint firstItem="Gdt-WD-fH5" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="VWB-YG-DFV"/>
-                            <constraint firstItem="mly-Po-Mfi" firstAttribute="top" secondItem="c0c-vt-o4E" secondAttribute="bottom" constant="30" id="cGz-iL-PVU"/>
+                            <constraint firstItem="DKH-bO-pqr" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="VXw-cw-qIf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ZCM-zr-EiM" secondAttribute="bottom" constant="30" id="cMf-6w-n6Z"/>
+                            <constraint firstItem="ZCM-zr-EiM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="efw-18-7dd"/>
+                            <constraint firstItem="DKH-bO-pqr" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="ekh-ma-fwS"/>
                             <constraint firstItem="y31-DK-ExW" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="140" id="j0o-UP-mwD"/>
+                            <constraint firstItem="qHb-Ml-ryz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="obS-ft-tV3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7mt-2q-b5Y" secondAttribute="trailing" constant="30" id="p9l-93-rlL"/>
                             <constraint firstItem="gU9-aE-3tc" firstAttribute="centerY" secondItem="y31-DK-ExW" secondAttribute="centerY" id="phI-Kj-xcS"/>
+                            <constraint firstItem="ZCM-zr-EiM" firstAttribute="top" secondItem="qHb-Ml-ryz" secondAttribute="bottom" constant="30" id="rD6-Xd-Ryh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7mt-2q-b5Y" secondAttribute="bottom" constant="30" id="rYp-2W-gVV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gU9-aE-3tc" secondAttribute="trailing" constant="60" id="uR2-yw-Y80"/>
                             <constraint firstItem="whh-LS-apb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="xFU-yP-Idf"/>
                             <constraint firstItem="c0c-vt-o4E" firstAttribute="top" secondItem="Gdt-WD-fH5" secondAttribute="bottom" constant="80" id="yS7-rA-laK"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="DKH-bO-pqr" id="55p-X3-8Oc"/>
                         <outlet property="cityNameLabel" destination="c0c-vt-o4E" id="YxJ-ws-Yfg"/>
                         <outlet property="cityNameTextField" destination="whh-LS-apb" id="eJN-D1-REF"/>
+                        <outlet property="geoLocationButton" destination="ZCM-zr-EiM" id="70T-dC-emR"/>
                         <outlet property="humidityLabel" destination="gU9-aE-3tc" id="TiN-gm-FxD"/>
                         <outlet property="iconLabel" destination="Gdt-WD-fH5" id="wBr-R8-y0a"/>
+                        <outlet property="mapButton" destination="7mt-2q-b5Y" id="N6g-zp-BRl"/>
+                        <outlet property="mapView" destination="qHb-Ml-ryz" id="Nyw-GN-dQF"/>
                         <outlet property="tempLabel" destination="y31-DK-ExW" id="nbL-pY-xme"/>
-                        <outlet property="tempSwitch" destination="mly-Po-Mfi" id="6dS-c4-7lz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -82,6 +105,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="location" catalog="system" width="128" height="121"/>
+        <image name="map" catalog="system" width="128" height="110"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

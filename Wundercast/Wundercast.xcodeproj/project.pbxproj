@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		12519FB1E60B86A9D8929D22 /* Pods_Wundercast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1BB1E493E9CF5C46845A60 /* Pods_Wundercast.framework */; };
+		FA786DFA2615BD3E009725F4 /* CLLocationManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA786DF92615BD3E009725F4 /* CLLocationManager+Rx.swift */; };
+		FA786E042616AC3F009725F4 /* MKMapView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA786E032616AC3F009725F4 /* MKMapView+Rx.swift */; };
 		FAD7540D2614560200808A79 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD7540C2614560200808A79 /* AppDelegate.swift */; };
 		FAD7540F2614560200808A79 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD7540E2614560200808A79 /* SceneDelegate.swift */; };
 		FAD754112614560200808A79 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD754102614560200808A79 /* ViewController.swift */; };
@@ -22,6 +24,8 @@
 		4A1BB1E493E9CF5C46845A60 /* Pods_Wundercast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wundercast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50EC0361D08AAC60F0D84D7D /* Pods-Wundercast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wundercast.release.xcconfig"; path = "Target Support Files/Pods-Wundercast/Pods-Wundercast.release.xcconfig"; sourceTree = "<group>"; };
 		DC688AEB00DDA7449DE3386D /* Pods-Wundercast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wundercast.debug.xcconfig"; path = "Target Support Files/Pods-Wundercast/Pods-Wundercast.debug.xcconfig"; sourceTree = "<group>"; };
+		FA786DF92615BD3E009725F4 /* CLLocationManager+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Rx.swift"; sourceTree = "<group>"; };
+		FA786E032616AC3F009725F4 /* MKMapView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+Rx.swift"; sourceTree = "<group>"; };
 		FAD754092614560200808A79 /* Wundercast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wundercast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAD7540C2614560200808A79 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAD7540E2614560200808A79 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +67,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FA786DF82615BAE6009725F4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				FA786DF92615BD3E009725F4 /* CLLocationManager+Rx.swift */,
+				FA786E032616AC3F009725F4 /* MKMapView+Rx.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		FAD754002614560200808A79 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +113,7 @@
 		FAD75436261473D500808A79 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FA786DF82615BAE6009725F4 /* Extensions */,
 				FAD754222614570F00808A79 /* ApiController.swift */,
 			);
 			path = Controllers;
@@ -222,6 +236,8 @@
 				FAD754232614570F00808A79 /* ApiController.swift in Sources */,
 				FAD754112614560200808A79 /* ViewController.swift in Sources */,
 				FAD7540D2614560200808A79 /* AppDelegate.swift in Sources */,
+				FA786E042616AC3F009725F4 /* MKMapView+Rx.swift in Sources */,
+				FA786DFA2615BD3E009725F4 /* CLLocationManager+Rx.swift in Sources */,
 				FAD7540F2614560200808A79 /* SceneDelegate.swift in Sources */,
 				FAD7542E261470B800808A79 /* Weather.swift in Sources */,
 			);
